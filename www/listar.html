@@ -1,0 +1,83 @@
+﻿<!doctype html>  
+<html lang="es">  
+<head>  
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>Cosumo de la luz</title>
+	<link rel="stylesheet" href="stylesheets/bootstrap.min.css">
+	<script src="js/angular.min.js"></script>
+	<script src="js/jquery.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	
+</head>  
+<body>  
+	<div data-ng-app="myApp" class='container' data-ng-controller='consumCtrl'>
+	
+	
+	<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+	 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar"> <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>      
+		</button>
+      <a class="navbar-brand" href="#">€/Luz</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav">
+        <li><a href="/">Añadir consumos</a></li>
+        <li><a href="/grafico.html">Ver gráfica</a></li>
+        <li><a href="/listar.html">Ver consumos almacenados</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>		
+
+		<h3>Revisa tus consumos almacenados</h3>
+		
+	<div >
+	<h3>Datos amacenados</h3>
+<table  class="table table-striped">
+	<thead>
+	<th>
+	Fecha
+	</th>
+	<th>
+	Consumo
+	</th>
+	<th>
+	Precio
+	</th>
+	<th>
+	Año
+	</th>
+	</thead>
+  <tr ng-repeat="x in names|orderBy:FechaFin">
+	<td>
+	{{x.FechaFin|date:'yyyy-MM-dd'}}
+	</td>
+    <td>
+	{{x.Consumo}}
+	</td>
+	<td>
+	{{x.Precio}}
+	</td>
+	<td>
+	{{x.Ano}}
+	</td>
+  </tr>
+</tr>
+</table>
+</div>
+	</div>   
+    
+	
+	<script>
+var app = angular.module('myApp', []);
+app.controller('consumCtrl', function($scope, $http) {
+    $http.get("/listar")
+    .success(function(response) {$scope.names = response;});
+});
+	</script>
+</body>  
+</html>  	
